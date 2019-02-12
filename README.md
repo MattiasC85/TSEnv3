@@ -8,7 +8,13 @@ Set-TSVariable.ps1 -VarName _SMSTSOrgName -VarValue TheNewValue
 Must be run during a TS under the local system account.
 
 I'm no programmer. I'm just a guy who got this to work.
+This is a stripped down version of the .exe I've made.
+
+My initial idea was to convert the c# class and make it all powershell.
+Snow and the fact that my wife is giving birth to our 3rd child, within 3 years, in only a week or two made me cut some corners, and after all, powershell is .NET.
+
 There are probably a lot I've could have done better but it does what it is supposed to.
+
 
 Also, this is "AsIs", there are plenty of fixes to be made not to mention verifying all kinds of charsets (UTF8/UNICODE/ASCII).
 But it's open source, you do what ever you want to with it. I've tried to make comments on the most criticle parts of the script.
