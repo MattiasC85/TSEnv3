@@ -3,7 +3,8 @@ Overwrite ANY writeprotected TSEnvironment variable in SCCM.
 Open Source alternative to TSEnv2.
 ![alt text](https://raw.githubusercontent.com/MattiasC85/TSEnv3/master/TSEnv3_2.png)
 Use:
-Set-TSVariable.ps1 -VarName _SMSTSOrgName -VarValue TheNewValue
+Eg.
+Set-TSVariable.ps1 -VarName _SMSTSOrgName -VarValue 2NdSite
 
 Must be run during a TS under the local system account.
 
