@@ -1,5 +1,10 @@
 # TSEnv3
 Overwrite ANY writeprotected TSEnvironment variable in SCCM.
+
+Version 0.6
+* Fixed varname matching multiple names.
+
+
 Open Source alternative to TSEnv2.
 ![alt text](https://raw.githubusercontent.com/MattiasC85/TSEnv3/master/TSEnv3_2.png)
 Use:
