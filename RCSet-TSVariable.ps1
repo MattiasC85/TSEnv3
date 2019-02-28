@@ -5,13 +5,20 @@ Param (
    [string] $VarValue
 )
 
-#--------------------------------------------
+#-------------------------------------------------------------------------
 # Script:Set-TSVariable.ps1
+# Version: 0.6
+#
+# Changes:
+# 
+# Version 0.6.
+#     * Fixed a logical flaw when matching variable names where 'varname'
+#       is a part of another variable.
+#       E.g. trying to set "_SMSTSMP" when "_SMSTSMPCerts" also exists.
+#       
 #
 #
-#
-#
-#--------------------------------------------
+#-------------------------------------------------------------------------
 
 $block = @'
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -56,7 +63,13 @@ namespace SetTsVariable
 	public class OverWrite
 	{
 
-
+    public static byte[] addByteToArray(byte[] bArray, byte newByte)
+        {
+            byte[] newArray = new byte[bArray.Length + 1];
+            bArray.CopyTo(newArray, 0);
+            newArray[newArray.Length -1] = newByte;
+            return newArray;
+        }
 	public static byte[] StrToByteArray(string str)
         {
             var dd = "";
@@ -175,7 +188,9 @@ namespace SetTsVariable
                 //Console.writeLine("Changing " + input + " to " + variableValue +".");
                 //Console.writeLine(editedname);
                 byte[] Stringarray = Encoding.UTF8.GetBytes(input);
+                Stringarray = addByteToArray(Stringarray,0x00);
                 byte[] replaceWith = Encoding.UTF8.GetBytes(editedname);
+                replaceWith = addByteToArray(replaceWith,0x00);
                 //Stream View2 = mappedFile2.CreateViewStream();
                 using (Stream view = mappedFile2.CreateViewStream())
                 {
@@ -278,6 +293,10 @@ namespace SetTsVariable
                             {
                                 Console.WriteLine("Success. " + variableName + "=" + variableValue);
                             }
+                            else
+                            {
+                                Console.WriteLine("Setting " + variableName + " to " + variableValue + " failed.");
+                            }
                         }
                             //File.WriteAllBytes("C:\\temp\\ByteArray.log", ByteArray);
                             //File.WriteAllBytes("C:\\temp\\Restore2", restore2);
@@ -358,10 +377,11 @@ namespace SetTsVariable
 }
 '@
 
-write-host $block -ForegroundColor White
-write-host ""
+
 try
 {
+    write-host $block -ForegroundColor White
+    write-host ""
     $TSEnv=New-Object -ComObject Microsoft.SMS.TSEnvironment
 }
 catch
@@ -415,5 +435,3 @@ else{
 
 #Fungerar 10an
 #[SetTsVariable.OverWrite]::new().overwriteProtectedVariable($VarName,$VarValue)
-
-
