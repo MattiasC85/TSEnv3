@@ -384,9 +384,10 @@ class TSEnv3
     {	
 
         #VarName length limit at 100 chars atm due to performance issues.
+	#2020-01-04 Temporary fix for long variable names
         $TSEnvData=$Script:TSEnvData
 	    $cur=$VarStartIndex
-	    $VarNameEnd=(($TSEnvData[($VarStartIndex)..(($VarStartIndex)+100)] | Select-Object -first 99).IndexOf(0))+($VarStartIndex)-1
+	    $VarNameEnd=(($TSEnvData[($VarStartIndex)..(($VarStartIndex)+300)] | Select-Object -first 299).IndexOf(0))+($VarStartIndex)-1
 	    Write-Verbose "NextVarValueIndex: $($VarNameEnd+2)"
 	    $NextVarValueArray=($TSEnvData[($VarNameEnd+2)..($VarNameEnd+5)])
 	    $IntNextVar=[System.BitConverter]::ToInt32($NextVarValueArray,0)
