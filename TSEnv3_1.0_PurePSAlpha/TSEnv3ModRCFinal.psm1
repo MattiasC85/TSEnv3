@@ -40,6 +40,9 @@
 .EXAMPLE
     To get verbose output add $true as argument to the psm1-file.
     Import-Module -Force $PSScriptRoot\TSEnv3ModRCFinal.psm1 -ArgumentList $true
+    
+.CHANGELOG
+    2020-01-04: Fix for long variable names
 #>
 
 [CmdletBinding()]
