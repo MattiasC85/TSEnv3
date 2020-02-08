@@ -691,7 +691,7 @@ class TSEnv3
         }
         catch
         {
-            write-host "Could not find a valid key in $47"
+            #write-host "Could not find a valid key in $47"
         }
     $i++
     }
